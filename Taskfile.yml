@@ -3,4 +3,5 @@ version: '3'
 tasks:
   format:
     cmds:
+      - clang-format -i --style=file $(find ./ -name '*.cc' -o -name '*.hpp')
       - ocamlformat --inplace --enable-outside-detected-project *.ml
