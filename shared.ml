@@ -1,4 +1,4 @@
-let solver (func : int -> int) (input : int) =
+let solver (func : 'a -> int) (input : 'a) : unit =
   let starttime = Sys.time () in
   let result = func input in
   let endtime = Sys.time () in
