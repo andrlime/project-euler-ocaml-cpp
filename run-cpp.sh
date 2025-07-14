@@ -2,7 +2,7 @@
 
 CC_FILE=$1
 CC_VERSION="c++26"
-COMPILER="g++"
+COMPILER="clang++"
 FLAGS="-O3"
 
 ${COMPILER} -std=${CC_VERSION} ${FLAGS} ${CC_FILE}
