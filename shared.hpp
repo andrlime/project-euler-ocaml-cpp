@@ -38,7 +38,9 @@ solver(Func func, const Input& input)
     std::cout << "Time: " << duration_ms << " ms\n";
 }
 
-std::vector<std::string> split(const std::string& s, char delimiter) {
+std::vector<std::string>
+split(const std::string& s, char delimiter)
+{
     std::vector<std::string> tokens;
     std::stringstream ss(s);
     std::string token;
