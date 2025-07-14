@@ -26,35 +26,49 @@ solve(const std::vector<std::vector<int>>& grid)
         for (int j = 0; j < grid_size; j++) {
             arr.fill(1);
             for (int k = 0; k < adjacent_count; k++) {
-                if (j - k >= 0) [[likely]] arr[Direction::Up] *= grid[i][j - k];
-                else arr[Direction::Up] = 0;
+                if (j - k >= 0) [[likely]]
+                    arr[Direction::Up] *= grid[i][j - k];
+                else
+                    arr[Direction::Up] = 0;
 
-                if (j + k < grid_size) [[likely]] arr[Direction::Down] *= grid[i][j + k];
-                else arr[Direction::Down] = 0;
+                if (j + k < grid_size) [[likely]]
+                    arr[Direction::Down] *= grid[i][j + k];
+                else
+                    arr[Direction::Down] = 0;
 
-                if (i - k >= 0) [[likely]] arr[Direction::Left] *= grid[i - k][j];
-                else arr[Direction::Left] = 0;
+                if (i - k >= 0) [[likely]]
+                    arr[Direction::Left] *= grid[i - k][j];
+                else
+                    arr[Direction::Left] = 0;
 
-                if (i + k < grid_size) [[likely]] arr[Direction::Right] *= grid[i + k][j];
-                else arr[Direction::Right] = 0;
+                if (i + k < grid_size) [[likely]]
+                    arr[Direction::Right] *= grid[i + k][j];
+                else
+                    arr[Direction::Right] = 0;
 
-                if (i - k >= 0 && j - k >= 0) [[likely]] arr[Direction::UpLeft] *= grid[i - k][j - k];
-                else arr[Direction::UpLeft] = 0;
+                if (i - k >= 0 && j - k >= 0) [[likely]]
+                    arr[Direction::UpLeft] *= grid[i - k][j - k];
+                else
+                    arr[Direction::UpLeft] = 0;
 
-                if (i + k < grid_size && j - k >= 0) [[likely]] arr[Direction::UpRight] *= grid[i + k][j - k];
-                else arr[Direction::UpRight] = 0;
+                if (i + k < grid_size && j - k >= 0) [[likely]]
+                    arr[Direction::UpRight] *= grid[i + k][j - k];
+                else
+                    arr[Direction::UpRight] = 0;
 
-                if (i - k >= 0 && j + k < grid_size) [[likely]] arr[Direction::DownLeft] *= grid[i - k][j + k];
-                else arr[Direction::DownLeft] = 0;
+                if (i - k >= 0 && j + k < grid_size) [[likely]]
+                    arr[Direction::DownLeft] *= grid[i - k][j + k];
+                else
+                    arr[Direction::DownLeft] = 0;
 
-                if (i + k < grid_size && j + k < grid_size) [[likely]] arr[Direction::DownRight] *= grid[i + k][j + k];
-                else arr[Direction::DownRight] = 0;
+                if (i + k < grid_size && j + k < grid_size) [[likely]]
+                    arr[Direction::DownRight] *= grid[i + k][j + k];
+                else
+                    arr[Direction::DownRight] = 0;
             }
             products[i][j] = std::ranges::max(arr);
         }
     }
-
-    
 
     return std::ranges::max(products | std::views::join);
 }
