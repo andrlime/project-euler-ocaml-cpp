@@ -30,7 +30,7 @@ solver(Func func, const Input& input)
     using namespace std::chrono;
 
     auto start = high_resolution_clock::now();
-    int result = func(input);
+    auto result = func(input);
     auto end = high_resolution_clock::now();
 
     std::cout << "Solution: " << result << '\n';
