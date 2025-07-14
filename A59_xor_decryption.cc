@@ -29,18 +29,15 @@ decrypt(std::string &s, const std::vector<char>& cipher, const std::array<char, 
 const int32_t
 solve(const std::vector<char>& cipher)
 {
-    std::vector<std::string> keys;
+    std::array<char, 3> key{'a', 'a', 'a'};
+    std::string s;
+
     for (std::size_t i = 0; i < 26; i ++) {
         for (std::size_t j = 0; j < 26; j ++) {
             for (std::size_t k = 0; k < 26; k ++) {
-                const std::array<char, 3> key{
-                    static_cast<char>(i + 'a'),
-                    static_cast<char>(j + 'a'),
-                    static_cast<char>(k + 'a')
-                };
-
-                std::string s;
+                s.clear();
                 if (!decrypt(s, cipher, key)) {
+                    key[2] ++;
                     continue;
                 }
 
@@ -50,7 +47,14 @@ solve(const std::vector<char>& cipher)
                 }
                 return sum;
             }
+
+            key[1] ++;
+            key[2] = 'a';
         }
+
+        key[0] ++;
+        key[1] = 'a';
+        key[2] = 'a';
     }
     
     return -1;
@@ -73,5 +77,7 @@ main()
     }
 
     solver(solve, cipher);
+
+    file.close();
     return 0;
 }

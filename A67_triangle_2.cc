@@ -39,5 +39,7 @@ main()
     }
 
     solver(solve, input);
+
+    file.close();
     return 0;
 }
