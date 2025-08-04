@@ -27,11 +27,7 @@ type year = int
 type date_t = year * month
 
 let is_leap (y : year) : bool =
-  if y mod 4 <> 0 then false else (
-    if y mod 100 == 0 then (
-      y mod 400 == 0
-    ) else true
-  )
+  if y mod 4 <> 0 then false else if y mod 100 == 0 then y mod 400 == 0 else true
 ;;
 
 let get_day_count (m : month) (y : year) : int =
@@ -68,20 +64,21 @@ let next_month (month : month) : month =
 
 let get_next_date ((y, m) : date_t) : date_t =
   match m with
-  | December -> (y + 1), January
-  | _ -> (y), next_month m
+  | December -> y + 1, January
+  | _ -> y, next_month m
 ;;
 
 let add_to_day (d : day) (amount : int) : day =
-  let current_index = match d with
-  | Sunday -> 0
-  | Monday -> 1
-  | Tuesday -> 2
-  | Wednesday -> 3
-  | Thursday -> 4
-  | Friday -> 5
-  | Saturday -> 6 in
-
+  let current_index =
+    match d with
+    | Sunday -> 0
+    | Monday -> 1
+    | Tuesday -> 2
+    | Wednesday -> 3
+    | Thursday -> 4
+    | Friday -> 5
+    | Saturday -> 6
+  in
   match (current_index + amount) mod 7 with
   | 0 -> Sunday
   | 1 -> Monday
@@ -94,14 +91,15 @@ let add_to_day (d : day) (amount : int) : day =
 ;;
 
 let rec get_count (day : day) (cur : year * month) (target : year) (accum : int) : int =
-  let (cur_year, cur_month) = cur in
-
-  if (cur_year > target) then accum else (
+  let cur_year, cur_month = cur in
+  if cur_year > target
+  then accum
+  else (
     let number_of_days = get_day_count cur_month cur_year in
     match day with
-    | Sunday -> get_count (add_to_day day number_of_days) (get_next_date cur) target (accum + 1)
-    | _ -> get_count (add_to_day day number_of_days) (get_next_date cur) target (accum)
-  )
+    | Sunday ->
+      get_count (add_to_day day number_of_days) (get_next_date cur) target (accum + 1)
+    | _ -> get_count (add_to_day day number_of_days) (get_next_date cur) target accum)
 ;;
 
 let solve ((syear, eyear) : year * year) : int =
