@@ -24,7 +24,7 @@ type month =
   | December
 
 type year = int
-type date_t = year * month
+type date = year * month
 
 let is_leap (y : year) : bool =
   if y mod 4 <> 0 then false else if y mod 100 == 0 then y mod 400 == 0 else true
@@ -62,7 +62,7 @@ let next_month (month : month) : month =
   | December -> January
 ;;
 
-let get_next_date ((y, m) : date_t) : date_t =
+let get_next_date ((y, m) : date) : date =
   match m with
   | December -> y + 1, January
   | _ -> y, next_month m
