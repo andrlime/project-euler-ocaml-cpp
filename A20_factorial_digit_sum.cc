@@ -4,7 +4,7 @@
 const uint32_t
 solve(int32_t number)
 {
-    lib::big_number bn;
+    lib::big_number<512> bn;
 
     for (int i = 1; i < number; i++)
         bn.multiply(i);

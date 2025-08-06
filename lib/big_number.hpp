@@ -4,26 +4,29 @@
 
 namespace lib {
 
-constexpr uint32_t digit_capacity = 512;
-
+template <uint32_t capacity>
 class big_number {
 private:
-    using big_number_t = std::array<uint32_t, digit_capacity>;
-    big_number_t digits{};
+    std::array<uint32_t, capacity> digits;
 
 public:
     big_number()
     {
-        // TODO: write an add() function instead of deafulting to 1
         digits.fill(0);
-        digits[digit_capacity - 1] = 1;
+        set_one();
+    }
+
+    inline void
+    set_one()
+    {
+        digits[capacity - 1] = 1;
     }
 
     void
     multiply(const uint32_t by)
     {
         uint32_t carry = 0;
-        for (size_t i = digit_capacity - 1; i > 0; i--) {
+        for (size_t i = capacity - 1; i > 0; i--) {
             digits[i] *= by;
             digits[i] += carry;
             carry = 0;
@@ -32,6 +35,12 @@ public:
                 digits[i] %= 10;
             }
         }
+    }
+
+    void
+    add(const uint32_t target)
+    {
+        throw std::runtime_error("unimplemented");
     }
 
     inline uint32_t
