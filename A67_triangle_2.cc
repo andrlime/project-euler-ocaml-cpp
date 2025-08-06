@@ -1,4 +1,4 @@
-#include "shared.hpp"
+#include "lib/shared.hpp"
 
 const int64_t
 solve(const std::vector<std::vector<int>>& triangle)

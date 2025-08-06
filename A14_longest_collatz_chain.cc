@@ -1,4 +1,4 @@
-#include "shared.hpp"
+#include "lib/shared.hpp"
 
 inline uint64_t
 next(uint64_t cur)

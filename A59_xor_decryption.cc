@@ -1,4 +1,4 @@
-#include "shared.hpp"
+#include "lib/shared.hpp"
 
 const bool
 decrypt(std::string& s, const std::vector<char>& cipher, const std::array<char, 3> key)

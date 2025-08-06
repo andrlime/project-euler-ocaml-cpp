@@ -1,4 +1,4 @@
-#include "shared.hpp"
+#include "lib/shared.hpp"
 
 std::unordered_map<uint64_t, size_t>
 factorise(uint64_t n)

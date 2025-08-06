@@ -1,4 +1,4 @@
-#include "shared.hpp"
+#include "lib/shared.hpp"
 
 constexpr size_t grid_size = 20;
 constexpr size_t adjacent_count = 4;

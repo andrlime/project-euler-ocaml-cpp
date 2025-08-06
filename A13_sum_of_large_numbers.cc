@@ -1,4 +1,4 @@
-#include "shared.hpp"
+#include "lib/shared.hpp"
 
 constexpr uint32_t strlength = 50;
 constexpr uint32_t firstN = 10;
