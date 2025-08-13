@@ -26,11 +26,11 @@ type month =
 type year = int
 type date = year * month
 
-let is_leap (y : year) : bool =
+let is_leap y =
   if y mod 4 <> 0 then false else if y mod 100 == 0 then y mod 400 == 0 else true
 ;;
 
-let get_day_count (m : month) (y : year) : int =
+let get_day_count m y =
   match m with
   | January -> 31
   | February -> if is_leap y then 29 else 28
@@ -46,8 +46,7 @@ let get_day_count (m : month) (y : year) : int =
   | December -> 31
 ;;
 
-let next_month (month : month) : month =
-  match month with
+let next_month = function
   | January -> February
   | February -> March
   | March -> April
@@ -62,13 +61,13 @@ let next_month (month : month) : month =
   | December -> January
 ;;
 
-let get_next_date ((y, m) : date) : date =
+let get_next_date (y, m) =
   match m with
   | December -> y + 1, January
   | _ -> y, next_month m
 ;;
 
-let add_to_day (d : day) (amount : int) : day =
+let add_to_day d amount =
   let current_index =
     match d with
     | Sunday -> 0
@@ -90,7 +89,7 @@ let add_to_day (d : day) (amount : int) : day =
   | _ -> Sunday
 ;;
 
-let rec get_count (day : day) (cur : year * month) (target : year) (accum : int) : int =
+let rec get_count day cur target accum =
   let cur_year, cur_month = cur in
   if cur_year > target
   then accum
@@ -102,9 +101,7 @@ let rec get_count (day : day) (cur : year * month) (target : year) (accum : int)
     | _ -> get_count (add_to_day day number_of_days) (get_next_date cur) target accum)
 ;;
 
-let solve ((syear, eyear) : year * year) : int =
-  get_count Tuesday (syear, January) eyear 0
-;;
+let solve (syear, eyear) = get_count Tuesday (syear, January) eyear 0
 
 let () =
   let start_year = 1901 in

@@ -1,6 +1,6 @@
 open Shared
 
-let rec range (cur : int) (max : int) (accum : int list) : int list =
+let rec range cur max accum =
   match cur = max with
   | true -> cur :: accum
   | false -> range (cur + 1) max (cur :: accum)
@@ -8,14 +8,14 @@ let rec range (cur : int) (max : int) (accum : int list) : int list =
 
 let char_to_digit (c : char) : int = Char.code c - Char.code '0'
 
-let preprocess_string (str : string) : int list =
+let preprocess_string str =
   String.get str
   |> List.init (String.length str)
   |> List.map char_to_digit
   |> List.filter (fun c -> c >= 0 && c <= 9)
 ;;
 
-let rec convolve (n : int) (numbers : int list) : int list =
+let rec convolve n numbers =
   let arr = Array.make (n + 1) 1 in
   numbers
   |> List.fold_left
@@ -25,13 +25,11 @@ let rec convolve (n : int) (numbers : int list) : int list =
        []
 ;;
 
-let find_max (list : int list) : int =
+let find_max list =
   list |> List.fold_left (fun acc cur -> if cur > acc then cur else acc) 0
 ;;
 
-let solve ((str, n) : string * int) : int =
-  str |> preprocess_string |> convolve n |> find_max
-;;
+let solve (str, n) = str |> preprocess_string |> convolve n |> find_max
 
 let () =
   let longnumber =

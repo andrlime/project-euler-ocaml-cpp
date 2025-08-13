@@ -1,12 +1,12 @@
 open Shared
 
-let rec range (cur : int) (min : int) (accum : int list) : int list =
+let rec range cur min accum =
   match cur = min with
   | true -> cur :: accum
   | false -> range (cur - 1) min (cur :: accum)
 ;;
 
-let solve (n : int) : int =
+let solve n =
   let arr = Array.init (n + 1) (fun _ -> Array.make (n + 1) 0) in
   arr.(0).(0) <- 1;
   let rng = range n 0 [] in

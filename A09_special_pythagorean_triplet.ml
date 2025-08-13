@@ -1,12 +1,12 @@
 open Shared
 
-let rec range (cur : int) (max : int) (accum : int list) : int list =
+let rec range cur max accum =
   match cur = max with
   | true -> cur :: accum
   | false -> range (cur + 1) max (cur :: accum)
 ;;
 
-let solve (n : int) : int =
+let solve n =
   let tbl = Hashtbl.create 31 in
   let rng = range 1 998 [] in
   rng |> List.map (fun x -> x, x * x) |> List.iter (fun (e, s) -> Hashtbl.add tbl s e);

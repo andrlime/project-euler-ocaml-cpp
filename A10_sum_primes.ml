@@ -1,8 +1,6 @@
 open Shared
 
-let rec floodfill (cur : int) (stepsize : int) (max : int) (list : bool array)
-  : bool array
-  =
+let rec floodfill cur stepsize max list : bool array =
   if cur > max
   then list
   else (
@@ -10,7 +8,7 @@ let rec floodfill (cur : int) (stepsize : int) (max : int) (list : bool array)
     floodfill (cur + stepsize) stepsize max list)
 ;;
 
-let rec sieve (factor : int) (max : int) (list : bool array) : bool array =
+let rec sieve factor max list =
   if factor > max
   then list
   else (
@@ -19,14 +17,14 @@ let rec sieve (factor : int) (max : int) (list : bool array) : bool array =
     | false -> sieve (factor + 1) max list)
 ;;
 
-let generate_primes (max : int) : (int * bool) list =
+let generate_primes max =
   let primes = Array.make (max + 1) true in
   primes.(0) <- false;
   primes.(1) <- false;
   sieve 2 max primes |> Array.mapi (fun i e -> i, e) |> Array.to_list
 ;;
 
-let solve (n : int) : int =
+let solve n =
   n
   |> generate_primes
   |> List.filter (fun (i, e) -> e)
