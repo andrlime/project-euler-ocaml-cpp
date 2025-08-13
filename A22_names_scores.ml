@@ -12,7 +12,7 @@ module Name = struct
     t.name |> String.fold_left (fun acc cur -> acc + get_value_of_char cur) 0
   ;;
 
-  let get_value t = t |> get_score |> fun score -> score * t.index
+  let get_value t = get_score t * t.index
   let get_name t = t.name
   let get_index t = t.index
   let make_name i n = { name = n; index = i + 1 }
