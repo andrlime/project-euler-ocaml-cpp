@@ -26,13 +26,13 @@ module Parser = struct
     let lastindex = String.length rest - 1 in
     let first = rest.[lastindex] in
     let rest = String.sub rest 0 lastindex in
-    match String.length rest with
-    | 0 -> cur :: acc
-    | _ ->
-      (match head with
-       | '\n' | ' ' | '"' -> parse first rest cur acc
-       | ',' -> parse first rest "" (cur :: acc)
-       | _ -> parse first rest (String.make 1 head ^ cur) acc)
+    if String.length rest = 0
+    then cur :: acc
+    else (
+      match head with
+      | '\n' | ' ' | '"' -> parse first rest cur acc
+      | ',' -> parse first rest "" (cur :: acc)
+      | _ -> parse first rest (String.make 1 head ^ cur) acc)
   ;;
 
   let parse_text_into_names text = parse ' ' text "" []
