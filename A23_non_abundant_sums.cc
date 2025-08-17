@@ -4,6 +4,7 @@ using Number = uint32_t;
 using Bool = uint8_t;
 
 constexpr Number NN = 32768;
+constexpr Number N1 = 8192;
 
 template <typename T>
 using Container = std::array<T, NN>;
@@ -31,9 +32,8 @@ template <Number N>
 constexpr const AbundantNumbers
 get_abundant_numbers(const Container<Number>& divisors)
 {
-    constexpr Number NUMBERS_SIZE = 8192;
     AbundantNumbers numbers;
-    numbers.reserve(NUMBERS_SIZE);
+    numbers.reserve(N1);
 
     for (std::size_t number = 1; number < divisors.size(); number++) {
         const Number sum_divisors = divisors[number];
