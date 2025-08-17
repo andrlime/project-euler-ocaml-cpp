@@ -18,9 +18,7 @@ module Name = struct
   let[@inline] make_name i n = { name = n; index = i + 1 }
 end
 
-let[@inline] unquote str =
-  String.sub str 1 @@ (String.length str) - 2
-;;
+let[@inline] unquote str = String.sub str 1 @@ (String.length str - 2)
 
 let solve names =
   names

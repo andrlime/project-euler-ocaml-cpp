@@ -1,6 +1,6 @@
 #include "lib/shared.hpp"
 
-const std::size_t
+const uint32_t
 solve(const int n)
 {
     std::size_t ct = 0;
