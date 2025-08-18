@@ -1,31 +1,35 @@
 #pragma once
 
 #include "shared.hpp"
+#include "types.hpp"
 
 namespace lib {
 
-template <uint32_t capacity>
+template <Unsigned T, UNumber capacity>
 class big_number {
-private:
-    std::array<uint32_t, capacity> digits;
-
 public:
-    big_number()
+    std::array<T, capacity> digits;
+
+    big_number() { set_one(); }
+
+    inline void
+    set_n(T n)
     {
-        digits.fill(0);
         set_one();
+        multiply(n);
     }
 
     inline void
     set_one()
     {
+        digits.fill(0);
         digits[capacity - 1] = 1;
     }
 
     void
-    multiply(const uint32_t by)
+    multiply(const UNumber by)
     {
-        uint32_t carry = 0;
+        T carry = 0;
         for (size_t i = capacity - 1; i > 0; i--) {
             digits[i] *= by;
             digits[i] += carry;
@@ -38,12 +42,21 @@ public:
     }
 
     void
-    add(const uint32_t target)
+    add(const UNumber with)
     {
-        throw std::runtime_error("unimplemented");
+        UNumber amount = with;
+        UNumber carry = 0;
+        for (size_t i = capacity - 1; i > 0; i--) {
+            if (amount == 0 && carry == 0)
+                break;
+            digits[i] += (amount % 10) + carry;
+            amount /= 10;
+            carry = digits[i] / 10;
+            digits[i] %= 10;
+        }
     }
 
-    inline uint32_t
+    inline T
     sum_digits()
     {
         return std::accumulate(digits.begin(), digits.end(), 0);

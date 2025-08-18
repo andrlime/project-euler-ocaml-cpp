@@ -1,10 +1,11 @@
 #include "lib/big_number.hpp"
 #include "lib/shared.hpp"
+#include "lib/types.hpp"
 
 const uint32_t
 solve(int32_t exponent)
 {
-    lib::big_number<512> bn;
+    lib::big_number<lib::UShort, 512> bn;
 
     for (int i = 1; i <= exponent; i++)
         bn.multiply(2);
